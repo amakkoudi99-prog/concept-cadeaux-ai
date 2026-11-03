@@ -1,6 +1,6 @@
 const pages = new Map([
   ['accueil', ['Tableau de bord', 'Suivez vos demandes commerciales et préparez vos offres.']],
-  ['assistant', ['Assistant', 'L’analyse des demandes sera connectée en phase 9.']],
+  ['assistant', ['Assistant', 'Recherche Makito et préparation des maquettes.']],
   ['catalogue', ['Catalogue', 'Le premier import portera sur un catalogue Makito autorisé.']],
   ['prix', ['Calcul des prix', 'Chiffrage interne en dirhams marocains.']],
   ['propositions', ['Propositions', 'Les produits et prix validés alimenteront la proposition PDF.']],
@@ -83,6 +83,8 @@ function render() {
   workspace.replaceChildren();
   if (route === 'accueil') renderDashboard();
   else if (route === 'catalogue') renderCatalogue();
+  else if (route === 'assistant') void renderAssistant();
+  else if (route === 'maquettes') renderMockup();
   else if (route === 'prix') renderPricing();
   else if (route === 'propositions') renderProposal();
   else {

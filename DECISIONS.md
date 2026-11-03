@@ -6,3 +6,6 @@
 - Import Makito depuis un export autorisé, à défaut saisie ou import manuel. Vérifier l’accès et la fraîcheur des prix et stocks au moment de l’intégration.
 
 Achats Makito en EUR, sorties de vente exclusivement en MAD. Aucun taux de change ni taux de TVA prérempli. Les montants de droits et frais sont saisis en MAD. La majoration est définie comme pourcentage du coût de revient. Chaque ligne utilise un prix de vente unitaire HT arrondi au centime, puis quantité × prix HT, puis TVA arrondie sur le total HT de la ligne. Le palier Makito est choisi explicitement, ses bornes exactes restant à confirmer.
+
+L'utilisateur a différé le calcul de prix. Le studio utilise exclusivement un prix de vente saisi en MAD avec mention HT ou TTC. Le module de calcul existant reste accessible.
+L'IA conversationnelle nécessite un fournisseur de modèle et une connexion côté serveur, encore non configurés. Un parcours local guidé fournit les premières opérations de recherche et composition.

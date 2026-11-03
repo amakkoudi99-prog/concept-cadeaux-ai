@@ -1,6 +1,7 @@
 let pricingDraft = null;
 
 function renderPricing() {
+  const workspace = document.querySelector('#workspace');
   const form = document.createElement('form');
   form.className = 'pricing-form';
   const intro = document.createElement('p');

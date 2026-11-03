@@ -4,6 +4,8 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 
 const assets = new Map([
+  ["/assistant.js", ["assistant.js", "text/javascript"]],
+  ["/mockup.js", ["mockup.js", "text/javascript"]],
   ['/pricing.js', ['pricing.js', 'text/javascript']],
   ['/pricing-ui.js', ['pricing-ui.js', 'text/javascript']],
   ['/', ['index.html', 'text/html']],
@@ -13,10 +15,17 @@ const assets = new Map([
 
 const catalogue = openCatalogue(fileURLToPath(new URL("./catalogue.sqlite", import.meta.url)));
 
+let importedProducts = null;
+try {
+  importedProducts = JSON.parse(await readFile(new URL('./makito-catalogue.json', import.meta.url), 'utf8'));
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
+
 createServer(async (request, response) => {
   const url = new URL(request.url, "http://localhost");
   if (request.method === "GET" && url.pathname === "/api/catalogue") {
-    const products = searchCatalogue(catalogue.list(), url.searchParams.get("q") ?? "");
+    const products = searchCatalogue(importedProducts ?? catalogue.list(), url.searchParams.get("q") ?? "");
     response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" }).end(JSON.stringify(products));
     return;
   }
