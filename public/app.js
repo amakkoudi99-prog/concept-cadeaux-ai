@@ -80,6 +80,7 @@ function render() {
   }
   workspace.replaceChildren();
   if (route === 'accueil') renderDashboard();
+  else if (route === 'catalogue') renderCatalogue();
   else {
     const card = document.createElement('article');
     card.textContent = 'Module prévu dans le plan de développement.';
@@ -89,3 +90,48 @@ function render() {
 
 window.addEventListener('hashchange', render);
 render();
+
+function renderCatalogue() {
+  const notice = document.createElement('p');
+  notice.textContent = 'Articles fictifs pour tester la recherche. Les données Makito seront intégrées après obtention d’un export autorisé.';
+  const label = document.createElement('label');
+  label.textContent = 'Référence, nom, catégorie, couleur ou matière';
+  const input = document.createElement('input');
+  input.type = 'search';
+  label.append(input);
+  const status = document.createElement('p');
+  status.setAttribute('role', 'status');
+  const list = document.createElement('ul');
+  const form = document.createElement('form');
+  const button = document.createElement('button');
+  button.textContent = 'Rechercher';
+  form.append(label, button);
+  workspace.append(notice, form, status, list);
+
+  let searchId = 0;
+  async function search() {
+    const id = ++searchId;
+    status.textContent = 'Recherche en cours…';
+    list.replaceChildren();
+    try {
+      const response = await fetch('/api/catalogue?' + new URLSearchParams({ q: input.value }));
+      if (!response.ok) throw new Error('Catalogue indisponible');
+      const products = await response.json();
+      if (id !== searchId) return;
+      status.textContent = products.length ? `${products.length} résultat(s)` : 'Aucun article correspondant.';
+      for (const product of products) {
+        const item = document.createElement('li');
+        item.textContent = [product.reference, product.name, product.category, product.color, product.material].join(' · ');
+        list.append(item);
+      }
+    } catch {
+      if (id === searchId) status.textContent = 'Catalogue indisponible.';
+    }
+  }
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    void search();
+  });
+  void search();
+}

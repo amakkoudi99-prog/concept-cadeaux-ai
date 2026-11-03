@@ -26,3 +26,5 @@ li { white-space: pre-wrap; overflow-wrap: anywhere; }
   .brand { margin-bottom: 10px; }
   nav { display: flex; flex-wrap: wrap; }
 }
+
+input[type="search"] { display: block; width: 100%; max-width: 560px; margin: 7px 0 14px; padding: 10px; border: 1px solid #777d86; border-radius: 6px; font: inherit; }

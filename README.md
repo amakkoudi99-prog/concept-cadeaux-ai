@@ -8,3 +8,5 @@ Premier lot de l’application métier indépendante de WordPress. Interface fra
 4. Ouvrir http://127.0.0.1:3000. Arrêter avec Ctrl+C.
 
 Le serveur écoute uniquement sur l’ordinateur qui le lance. Utiliser des données fictives pendant cette phase. Les brouillons appartiennent au profil du navigateur et peuvent disparaître lorsque ses données sont effacées.
+
+Dans **Catalogue**, teste `bleu inox`, `écru` ou `TEST-003`. Node.js crée automatiquement une base SQLite locale avec trois articles fictifs.

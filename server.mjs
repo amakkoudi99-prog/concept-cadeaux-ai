@@ -1,3 +1,5 @@
+import { openCatalogue, searchCatalogue } from "./catalogue.mjs";
+import { fileURLToPath } from "node:url";
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 
@@ -7,8 +9,16 @@ const assets = new Map([
   ['/app.js', ['app.js', 'text/javascript']],
 ]);
 
+const catalogue = openCatalogue(fileURLToPath(new URL("./catalogue.sqlite", import.meta.url)));
+
 createServer(async (request, response) => {
-  const asset = assets.get(request.url?.split('?')[0]);
+  const url = new URL(request.url, "http://localhost");
+  if (request.method === "GET" && url.pathname === "/api/catalogue") {
+    const products = searchCatalogue(catalogue.list(), url.searchParams.get("q") ?? "");
+    response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" }).end(JSON.stringify(products));
+    return;
+  }
+  const asset = assets.get(url.pathname);
   if (!asset || request.method !== 'GET') {
     response.writeHead(404).end();
     return;
