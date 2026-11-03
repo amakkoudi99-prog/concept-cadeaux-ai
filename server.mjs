@@ -4,6 +4,8 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 
 const assets = new Map([
+  ['/pricing.js', ['pricing.js', 'text/javascript']],
+  ['/pricing-ui.js', ['pricing-ui.js', 'text/javascript']],
   ['/', ['index.html', 'text/html']],
   ['/style.css', ['style.css', 'text/css']],
   ['/app.js', ['app.js', 'text/javascript']],
