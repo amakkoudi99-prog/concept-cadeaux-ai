@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+body { margin: 0; color: #24262b; background: #f3f4f6; font: 16px/1.55 system-ui, sans-serif; display: grid; grid-template-columns: 240px minmax(0, 1fr); min-height: 100vh; }
+aside { background: #24262b; color: white; padding: 28px 16px; }
+.brand { font-size: 19px; font-weight: 700; margin: 0 8px 28px; }
+.brand b { color: #ff969c; }
+nav { display: grid; gap: 4px; }
+nav a { display: block; color: #eee; text-decoration: none; padding: 9px 12px; border-radius: 7px; }
+nav a:hover { background: #3d4048; }
+nav a[aria-current] { background: #a92133; color: white; }
+main { padding: clamp(18px, 5vw, 66px); width: 100%; max-width: 1200px; }
+.eyebrow { color: #a92133; font-weight: 750; letter-spacing: .1em; font-size: .75rem; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 14px 0; }
+#intro { color: #51555e; margin-bottom: 28px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 14px; margin-bottom: 18px; }
+article { padding: 20px; background: white; border: 1px solid #dcdfe4; border-radius: 12px; }
+h2 { font-size: 1.05rem; margin-top: 0; }
+strong { font-size: 1.5rem; }
+label, textarea { display: block; }
+textarea { width: 100%; min-height: 110px; padding: 12px; margin: 7px 0 14px; border: 1px solid #777d86; border-radius: 6px; font: inherit; }
+button { border: 0; padding: 11px 15px; border-radius: 6px; color: white; background: #a92133; font: inherit; cursor: pointer; }
+button:disabled { opacity: .55; cursor: default; }
+li { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 650px) {
+  body { display: block; }
+  aside { padding: 14px; }
+  .brand { margin-bottom: 10px; }
+  nav { display: flex; flex-wrap: wrap; }
+}

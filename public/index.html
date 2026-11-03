@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept Cadeaux AI</title>
+<link rel="stylesheet" href="/style.css">
+<script type="module" src="/app.js"></script>
+</head>
+<body>
+<aside>
+  <div class="brand">Concept Cadeaux <b>AI</b></div>
+  <nav aria-label="Navigation principale"></nav>
+</aside>
+<main>
+  <p class="eyebrow">ESPACE COMMERCIAL · VERSION LOCALE</p>
+  <h1 id="title">Tableau de bord</h1>
+  <p id="intro"></p>
+  <section id="workspace"></section>
+</main>
+<template id="dashboard">
+  <div class="cards">
+    <article><h2>Demandes test</h2><strong id="count">0</strong></article>
+    <article><h2>Catalogue fournisseur</h2><p>Makito · import à préparer</p></article>
+    <article><h2>Étape actuelle</h2><p>Interface locale</p></article>
+  </div>
+  <article>
+    <h2>Enregistrer une demande test</h2>
+    <form>
+      <label for="request">Demande fictive</label>
+      <textarea id="request" required maxlength="4000" placeholder="Ex. 500 gourdes bleues et 150 tote bags"></textarea>
+      <button>Enregistrer le brouillon</button>
+      <p role="status"></p>
+    </form>
+    <h2>Brouillons sur cet appareil</h2>
+    <ul id="drafts"></ul>
+  </article>
+</template>
+</body>
+</html>
