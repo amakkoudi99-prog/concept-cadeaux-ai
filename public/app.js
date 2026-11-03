@@ -9,6 +9,7 @@ const pages = new Map([
   ['parametres', ['Paramètres', 'Les règles de calcul et les accès seront configurés ici.']],
 ]);
 
+const selection = new Map();
 const storageKey = 'concept-cadeaux:test-drafts';
 const nav = document.querySelector('nav');
 const workspace = document.querySelector('#workspace');
@@ -81,6 +82,7 @@ function render() {
   workspace.replaceChildren();
   if (route === 'accueil') renderDashboard();
   else if (route === 'catalogue') renderCatalogue();
+  else if (route === 'propositions') renderProposal();
   else {
     const card = document.createElement('article');
     card.textContent = 'Module prévu dans le plan de développement.';
@@ -122,6 +124,16 @@ function renderCatalogue() {
       for (const product of products) {
         const item = document.createElement('li');
         item.textContent = [product.reference, product.name, product.category, product.color, product.material].join(' · ');
+        const add = document.createElement("button");
+        add.type = "button";
+        add.textContent = selection.has(product.reference) ? "Ajouté" : "Ajouter";
+        add.disabled = selection.has(product.reference);
+        add.addEventListener("click", () => {
+          selection.set(product.reference, { ...product, quantity: 50 });
+          add.textContent = "Ajouté";
+          add.disabled = true;
+        });
+        item.append(" ", add);
         list.append(item);
       }
     } catch {
@@ -134,4 +146,48 @@ function renderCatalogue() {
     void search();
   });
   void search();
+}
+
+function renderProposal() {
+  const card = document.createElement('article');
+  const request = document.createElement('p');
+  try {
+    const drafts = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
+    request.textContent = typeof drafts[0] === 'string' ? drafts[0] : 'Aucune demande test enregistrée.';
+  } catch {
+    request.textContent = 'Demande test indisponible.';
+  }
+  const heading = document.createElement('h2');
+  heading.textContent = 'Dernière demande test';
+  const link = document.createElement('a');
+  link.href = '#catalogue';
+  link.textContent = 'Choisir des articles dans le catalogue';
+  card.append(heading, request, link);
+  workspace.append(card);
+  const list = document.createElement('ul');
+  workspace.append(list);
+  for (const product of selection.values()) {
+    const row = document.createElement('li');
+    const label = document.createElement('label');
+    label.textContent = product.name + ' · Quantité ';
+    const quantity = document.createElement('input');
+    quantity.type = 'number';
+    quantity.min = '50';
+    quantity.step = '1';
+    quantity.required = true;
+    quantity.value = product.quantity;
+    quantity.addEventListener('change', () => {
+      if (quantity.validity.valid) product.quantity = quantity.valueAsNumber;
+      else quantity.reportValidity();
+    });
+    const remove = document.createElement('button');
+    remove.textContent = 'Retirer';
+    remove.addEventListener('click', () => {
+      selection.delete(product.reference);
+      row.remove();
+    });
+    label.append(quantity);
+    row.append(label, remove);
+    list.append(row);
+  }
 }
