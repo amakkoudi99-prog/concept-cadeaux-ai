@@ -4,6 +4,7 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 
 const assets = new Map([
+  ["/workflow.js", ["workflow.js", "text/javascript"]],
   ["/assistant.js", ["assistant.js", "text/javascript"]],
   ["/mockup.js", ["mockup.js", "text/javascript"]],
   ['/pricing.js', ['pricing.js', 'text/javascript']],
