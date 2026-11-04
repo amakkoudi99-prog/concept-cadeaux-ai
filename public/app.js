@@ -84,7 +84,8 @@ function render() {
   if (route === 'accueil') renderDashboard();
   else if (route === 'catalogue') renderCatalogue();
   else if (route === 'assistant') void renderAssistant();
-  else if (route === 'maquettes') renderMockup();
+  else if (route === 'maquettes') renderWorkflowMockups();
+  else if (route === 'facturation') renderWorkflowBilling();
   else if (route === 'prix') renderPricing();
   else if (route === 'propositions') renderProposal();
   else {
